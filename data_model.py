@@ -2,13 +2,23 @@ from pydantic import BaseModel
 
 class DataModel(BaseModel):
 
-    credit_score: int
-    country: str
-    gender: str
-    age: int
+    TotalCharges: float
+    MonthlyCharges: float
     tenure: int
-    balance: float
-    products_number: int
-    credit_card: int
-    active_member: int
-    estimated_salary: float
+    gender: str
+    SeniorCitizen: int
+    Partner: boolean
+    Dependents: boolean
+    PhoneService: boolean
+    MultipleLines: str
+    InternetService: str
+    TechSupport: str
+    OnlineSecurity: str
+    OnlineBackup: str
+    DeviceProtection: str
+    StreamingTV: str
+    StreamingMovies: str
+    Contract: str
+    PaperlessBilling: boolean
+    PaymentMethod: str
+    Churn: str
