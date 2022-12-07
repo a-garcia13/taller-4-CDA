@@ -7,9 +7,9 @@ class RetrainDataModel(BaseModel):
     tenure: int
     gender: str
     SeniorCitizen: int
-    Partner: boolean
-    Dependents: boolean
-    PhoneService: boolean
+    Partner: str
+    Dependents: str
+    PhoneService: str
     MultipleLines: str
     InternetService: str
     TechSupport: str
@@ -19,6 +19,6 @@ class RetrainDataModel(BaseModel):
     StreamingTV: str
     StreamingMovies: str
     Contract: str
-    PaperlessBilling: boolean
+    PaperlessBilling: str
     PaymentMethod: str
     Churn: str
