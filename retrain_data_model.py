@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class DataModel(BaseModel):
+class RetrainDataModel(BaseModel):
 
     TotalCharges: float
     MonthlyCharges: float
@@ -21,3 +21,4 @@ class DataModel(BaseModel):
     Contract: str
     PaperlessBilling: boolean
     PaymentMethod: str
+    Churn: str
