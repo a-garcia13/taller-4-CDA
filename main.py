@@ -22,10 +22,10 @@ def make_predictions(X: List[DataModel], model: str = 'random_forest'):
     print(X)
     df = pd.DataFrame([x.dict() for x in X])
     predicion_model = PredictionModel(model)
-    results, probability = predicion_model.make_predictions(df)
+    results, probability, model_name = predicion_model.make_predictions(df)
     df = pd.DataFrame(probability, columns=["No", "Yes"])
     df["Result"] = results
-    return df.to_dict()
+    return {"model":model_name, "result":df.to_dict()}
 
 @app.post("/retrain")
 def retrain(X: List[RetrainDataModel]):

@@ -1,6 +1,7 @@
 #Manejo de datos
 import pandas as pd
 import numpy as np
+import os
 import uuid
 
 #Entrenamiento del modelo
@@ -58,7 +59,7 @@ class RetrainModel:
         best_lr = self.grid_search.best_estimator_
         y_pred_test = best_lr.predict(X_test)
         result_new = classification_report(y_test, y_pred_test, output_dict=True)
-        y_pred_test_old, probability = self.predicion_model.make_predictions(X_test)
+        y_pred_test_old, probability, name = self.predicion_model.make_predictions(X_test)
         result_old = classification_report(y_test, y_pred_test_old, output_dict=True)
         filename = str(uuid.uuid4())+'.sav'
         base_path = "models"
