@@ -40,13 +40,14 @@ class RetrainModel:
             ]
         )
 
-        pipe = Pipeline(steps=[("preprocessor", preprocessor), ("xgb", GradientBoostingClassifier())])
+        pipe = Pipeline(steps=[("preprocessor", preprocessor), ("rfc", RandomForestClassifier())])
 
         parameters = {
             "preprocessor__num__imputer__strategy": ["mean"],
             'preprocessor__num__scaler': [MinMaxScaler()],
-            'xgb__n_estimators': [50],
-            'xgb__max_depth': [10]
+            'rfc__n_estimators': [100],
+            'rfc__max_depth': [10],
+            'rfc__min_samples_leaf': [6]
         }
 
         self.grid_search = GridSearchCV(pipe, parameters, verbose=2, scoring='roc_auc', cv=5, n_jobs=-1)
@@ -54,11 +55,13 @@ class RetrainModel:
 
     def retrain_model(self, X_train, y_train, X_test, y_test):
         self.grid_search.fit(X_train, y_train)
-        best_lr = grid_search.best_estimator_
+        best_lr = self.grid_search.best_estimator_
         y_pred_test = best_lr.predict(X_test)
         result_new = classification_report(y_test, y_pred_test, output_dict=True)
         y_pred_test_old, probability = self.predicion_model.make_predictions(X_test)
         result_old = classification_report(y_test, y_pred_test_old, output_dict=True)
         filename = str(uuid.uuid4())+'.sav'
-        joblib.dump(best_lr, filename)
+        base_path = "models"
+        fpath = os.path.join(base_path, filename)
+        joblib.dump(best_lr, fpath)
         return result_new, result_old, filename
